@@ -26,5 +26,3 @@ jsW65C816S.prototype.Reset = function(){
     this.flags.X = true;
     this.flags.D = false;
 };
-
-
