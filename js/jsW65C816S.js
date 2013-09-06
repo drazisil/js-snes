@@ -14,6 +14,24 @@ function opcodes() {
 //        P:   Add 1 if branch crosses page boundary in emulation mode
 //        Z:   Add 1 if DP is not on a page boundary
 
+//Addressing Mode                                   Syntax Example
+//                                                  Opcode  Operand
+//
+//Implied                                           DEX     
+//Accumulator                                       ASL     A
+//Immediate                                         LDA     #55
+//Absolute                                          LDA     $2000
+//Program Counter Relative                          BEQ     LABEL12
+//Stack                                             PHA
+//Zero Stack                                        LDA     $81
+//Absolute Indexed with X                           LDA     $2000,X
+//Absolute Indexed with Y                           LDA     $2000,Y
+//Zero Page Indexed with X                          LDA     $55,X
+//Zero Page Indexed with Y                          LDX     $55,Y
+//Absolute Indirect                                 JMP     ($1020)
+//Zero Page Indirect Indexed with Y (Postindexed)   LDA     ($55),Y
+//Zero Page Indexed Indirect with X (Preindexed)    LDA     ($55,X)
+
 //Instruction     Hex     Cycle Time      Status Reg.     Notes
 //===============================================================================
 };
