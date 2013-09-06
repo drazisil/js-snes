@@ -10,6 +10,7 @@ jsSNESSystem.prototype.powerOn = function() {
         this.cpu = new jsW65C816S();
         this.cpu.Reset();
         this.cart = new cartridge();
+        this.mem = new jsMemMapper();
     } else {
         console.log('ERROR: System halted.');
     }

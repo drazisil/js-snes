@@ -19,12 +19,13 @@
             function isSystemReady(cpu, cycleCount) {
                 if (cpu.cart.state === true) {
                     clearTimeout(1);
+                    clearTimeout(2);
                     cpu.run(cycleCount);
                 }
             }
             debugMode = true;
             //maxCycles = 959;
-            maxCycles = 0;
+            maxCycles = 1;
             //ppu = new jsPPU();
             //eda = new jsAjHD();
             //mapper = new jsMemMapper(eda);
