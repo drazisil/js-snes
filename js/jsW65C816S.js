@@ -16,8 +16,7 @@ function opcodes() {
 
 //Instruction     Hex     Cycle Time      Status Reg.     Notes
 //===============================================================================
-}
-;
+};
 
 opcodes.prototype.ADC = function() {
 //ADC #imm        69      2 [16A,D]       nv----zc        Add memory to A with
@@ -37,6 +36,7 @@ opcodes.prototype.ADC = function() {
 //ADC ofs,S       63      4 [16A,D]
 //ADC (ofs,S),Y   73      7 [16A,D]
     console.log('Testing...');
+        return true;
 };
 opcodes.prototype.AND = function() {
 //AND #imm        29      2 [16A]         n-----z-        And A with memory.
@@ -56,7 +56,7 @@ opcodes.prototype.AND = function() {
 //AND (ofs,S),Y   33      7 [16A]
 
 // AND = &&
-
+    return true;
 };
 opcodes.prototype.ASL = function() {
 //ASL             0A      2               n-----zc        Shift left memory or A.
@@ -64,20 +64,20 @@ opcodes.prototype.ASL = function() {
 //ASL dp          06      5 [16B,Z]
 //ASL abs,X       1E      7 [16B]
 //ASL dp,X        16      6 [16B,Z]
-
+    return true;
 };
 
 opcodes.prototype.BCC = function() {
 //BCC relbyte     90      2 [B,P]         --------        Branch if carry clear.
-
+    return true;
 };
 opcodes.prototype.BCS = function() {
 //BCS relbyte     B0      2 [B,P]         --------        Branch if carry set.
-
+    return true;
 };
 opcodes.prototype.BEQ = function() {
 //BEQ relbyte     F0      2 [B,P]         --------        Branch if equal (z=0).
-
+    return true;
 };
 opcodes.prototype.BIT = function() {
 //BIT #imm        89      2 [16A]         ------z-        Test memory with bits
@@ -86,50 +86,60 @@ opcodes.prototype.BIT = function() {
 //BIT dp          24      3 [16A,Z]
 //BIT abs,X       3C      4 [16A,C]
 //BIT dp,X        34      4 [16A,Z]    
+    return true;
 };
 opcodes.prototype.BMI = function() {
 //BMI relbyte     30      2 [B,P]         --------        Branch if minus (n=1).
+    return true;
 };
 opcodes.prototype.BNE = function() {
 //BNE relbyte     D0      2 [B,P]         --------        Branch if not equal.
-
+    return true;
 };
 opcodes.prototype.BPL = function() {
 //BPL relbyte     10      2 [B,P]         --------        Branch if positive.
-
+    return true;
 };
 opcodes.prototype.BRA = function() {
 //BRA relbyte     80      2 [P]           --------        Branch always.    
-
+    return true;
 };
 opcodes.prototype.BRK = function() {
 //BRK byte        00      7 [N]           ----01--        Software break
 //BRK             00                      ---101--        (sets b in emulation
 //                                                        mode).    
+    return true;
 };
 opcodes.prototype.BRL = function() {
 //BRL relword     82      4               --------        Branch always long.    
+    return true;
 };
 opcodes.prototype.BVC = function() {
 //BVC relbyte     50      2 [B,P]         --------        Branch if overflow
 //                                                        clear.    
+    return true;
 };
 opcodes.prototype.BVS = function() {
 //BVS relbyte     70      2 [B,P]         --------        Branch if overflow set.
+    return true;
 };
 
 opcodes.prototype.CLC = function() {
 //CLC             18      2               -------0        Clear carry bit.
+    return true;
 };
 opcodes.prototype.CLD = function() {
 //CLD             D8      2               ----0---        Clear decimal bit.
+    return true;
 };
 opcodes.prototype.CLI = function() {
 //CLI             58      2               -----0--        Clear interrupt disable
 //                                                        bit.
+    return true;
 };
 opcodes.prototype.CLV = function() {
 //CLV             B8      2               -0------        Clear overflow bit.
+    return true;
 };
 opcodes.prototype.CMP = function() {
 //CMP #imm        C9      2 [16A]         n-----zc        Compare A with memory.
@@ -147,19 +157,23 @@ opcodes.prototype.CMP = function() {
 //CMP [dp],Y      D7      6 [16A,Z]
 //CMP ofs,S       C3      4 [16A]
 //CMP (ofs,S),Y   D3      7 [16A]
+    return true;
 };
 opcodes.prototype.COP = function() {
 //COP byte        02      7 [N]           ----01--        Coprocessor enable.
+    return true;
 };
 opcodes.prototype.CPX = function() {
 //CPX #imm        E0      2 [I]           n-----zc        Compare X with memory.
 //CPX abs         EC      4 [I]
 //CPX dp          E4      3 [I,Z]
+    return true;
 };
 opcodes.prototype.CPY = function() {
 //CPY #imm        C0      2 [I]           n-----zc        Compare Y with memory.
 //CPY abs         CC      4 [I]
 //CPY dp          C4      3 [I,Z]
+    return true;
 };
 opcodes.prototype.DEC = function() {
 //DEC             3A      2               n------c        Decrement A or memory.
@@ -167,12 +181,15 @@ opcodes.prototype.DEC = function() {
 //DEC dp          C6      5 [16B,Z]
 //DEC abs,X       DE      7 [16B]
 //DEC dp,X        D6      6 [16B,Z]
+    return true;
 };
 opcodes.prototype.DEX = function() {
 //DEX             CA      2               n------c        Decrement X register.
+    return true;
 };
 opcodes.prototype.DEY = function() {
 //DEY             88      2               n------c        Decrement Y register.
+    return true;
 };
 opcodes.prototype.EOR = function() {
 //EOR #imm        49      2 [16A]         n------c        Exclusive-OR A with
@@ -193,6 +210,7 @@ opcodes.prototype.EOR = function() {
 //EOR (ofs,S),Y   53      7 [16A]
 
 // XOR = ^
+    return true;
 };
 opcodes.prototype.INC = function() {
 //INC             1A      2               n------c        Increment A or memory.
@@ -200,29 +218,36 @@ opcodes.prototype.INC = function() {
 //INC dp          E6      5 [16B,Z]
 //INC abs,X       FE      7 [16B]
 //INC dp,X        F6      6 [16B,Z]
+    return true;
 };
 opcodes.prototype.INX = function() {
 //INX             E8      2               n------c        Increment X register.
+    return true;
 };
 opcodes.prototype.INY = function() {
 //INY             C8      2               n------c        Increment Y register.
+    return true;
 };
 opcodes.prototype.JML = function() {
 //JML abslong     5C      4               --------        Jump long.
 //JML [dp]        DC      6
+    return true;
 };
 opcodes.prototype.JMP = function() {
 //JMP abs         4C      3               --------        Jump.
 //JMP (abs)       6C      5
 //JMP (abs,X)     7C      6
+    return true;
 };
 opcodes.prototype.JSL = function() {
 //JSL abslong     22      8               --------        Jump to subroutine
 //                                                        long.
+    return true;
 };
 opcodes.prototype.JSR = function() {
 //JSR abs         20      6               --------        Jump to subroutine.
 //JSR (addr,X)    FC      8
+    return true;
 };
 opcodes.prototype.LDA = function() {
 //LDA #imm        A9      2 [16A]         n-----z-        Load accumulator with
@@ -241,6 +266,7 @@ opcodes.prototype.LDA = function() {
 //LDA [dp],Y      B7      6 [16A,Z]
 //LDA ofs,S       A3      4 [16A]
 //LDA (ofs,S),Y   B3      7 [16A]
+    return true;
 };
 opcodes.prototype.LDX = function() {
 //LDX #imm        A2      2 [I]           n-----z-        Load X register with
@@ -249,6 +275,7 @@ opcodes.prototype.LDX = function() {
 //LDX dp          A6      3 [I,Z]
 //LDX abs,Y       BE      4 [I,C]
 //LDX dp,Y        B6      4 [I,Z]
+    return true;
 };
 opcodes.prototype.LDY = function() {
 //LDY #imm        A0      2 [I]           n-----z-        Load Y register with
@@ -257,6 +284,7 @@ opcodes.prototype.LDY = function() {
 //LDY dp          A4      3 [I]
 //LDY abs,X       BC      4 [I,C]
 //LDY dp,X        B4      4 [I,Z]
+    return true;
 };
 opcodes.prototype.LSR = function() {
 //LSR             4A      2               n-----zc        Logical shift A or
@@ -265,10 +293,12 @@ opcodes.prototype.LSR = function() {
 //LSR dp          46      5 [16A,Z]
 //LSR abs,X       5E      7 [16A]
 //LSR dp,X        56      6 [16A,Z]
+    return true;
 };
 opcodes.prototype.MVN = function() {
 //MVN byte,byte   54      [M]             --------        Move memory negative
 //                                                        (srcbank, destbank).
+    return true;
 };
 opcodes.prototype.MVP = function() {
 //MVP byte,byte   44      [M]             --------        Move memory positive
@@ -276,9 +306,11 @@ opcodes.prototype.MVP = function() {
 //                                                        * X = source address
 //                                                          Y = target address
 //                                                          A = length -1
+    return true;
 };
 opcodes.prototype.NOP = function() {
 //NOP             EA      2               --------        No operation.
+    return true;
 };
 opcodes.prototype.ORA = function() {
 //ORA #imm        09      2 [16A]         n-----z-        Or A with memory.
@@ -298,68 +330,86 @@ opcodes.prototype.ORA = function() {
 //ORA (ofs,S),Y   13      7 [16A]
 
 // OR = |
+    return true;
 };
 opcodes.prototype.PEA = function() {
 //PEA abs         F4      5               --------        Push effective absolute
 //                                                        address.
+    return true;
 };
 opcodes.prototype.PEI = function() {
 //PEI (dp)        D4      6 [Z]           --------        Push effective indirect
 //                                                        address.
+    return true;
 };
 opcodes.prototype.PER = function() {
 //PER relword     62      6               --------        Push effective relative
 //                                                        address.
+    return true;
 };
 opcodes.prototype.PHA = function() {
 //PHA             48      3 [16A]         --------        Push accumulator.
+    return true;
 };
 opcodes.prototype.PHB = function() {
 //PHB             8B      3               --------        Push data bank
 //                                                        register.
+    return true;
 };
 opcodes.prototype.PHD = function() {
 //PHD             0B      4               --------        Push direct page
 //                                                        register.
+    return true;
 };
 opcodes.prototype.PHK = function() {
 //PHK             4B      3               --------        Push program bank
 //                                                        register.
+    return true;
 };
 opcodes.prototype.PHP = function() {
 //PHP             08      3               --------        Push processor status
 //                                                        register.
+    return true;
 };
 opcodes.prototype.PHX = function() {
 //PHX             DA      3 [I]           --------        Push X register.
+    return true;
 };
 opcodes.prototype.PHY = function() {
 //PHY             5A      3 [I]           --------        Push Y register.
+    return true;
 };
 opcodes.prototype.PLA = function() {
 //PLA             68      4 [16A]         n-----z-        Pull accumulator.
+    return true;
 };
 opcodes.prototype.PLB = function() {
 //PLB             AB      4               n-----z-        Pull data bank
 //                                                        register.
+    return true;
 };
 opcodes.prototype.PLD = function() {
 //PLD             2B      5               n-----z-        Pull direct page
 //                                                        register.
+    return true;
 };
 opcodes.prototype.PLP = function() {
 //PLP             28      4               nvmxdizc        Pull processor status
 //                                                        register.
+    return true;
 };
 opcodes.prototype.PLX = function() {
 //PLX             FA      4 [I]           n-----z-        Pull X register.
+    return true;
 };
 opcodes.prototype.PLY = function() {
 //PLY             7A      4 [I]           n-----z-        Pull Y register.
+    return true;
 };
 opcodes.prototype.REP = function() {
 //REP #imm        C2      3               ????????        Reset processor status
 //                                                        register bits.
+    return true;
 };
 opcodes.prototype.ROL = function() {
 //ROL             2A      2               n-----zc        Rotate A or memory
@@ -368,6 +418,7 @@ opcodes.prototype.ROL = function() {
 //ROL dp          26      5 [16A,Z]
 //ROL abs,X       3E      7 [16A]
 //ROL dp,X        36      6 [16A,Z]
+    return true;
 };
 opcodes.prototype.ROR = function() {
 //ROR             2A      2               n-----zc        Rotate A or memory
@@ -376,18 +427,22 @@ opcodes.prototype.ROR = function() {
 //ROR dp          26      5 [16A,Z]
 //ROR abs,X       3E      7 [16A]
 //ROR dp,X        36      6 [16A,Z]
+    return true;
 };
 opcodes.prototype.RTI = function() {
 //RTI             40      6 [N]           ????????        Return from interrupt.
 //RTI             40      6               ??11????        (emulation mode).
+    return true;
 };
 opcodes.prototype.RTL = function() {
 //RTL             6B      6               --------        Return from subroutine
 //                                                        long.
+    return true;
 
 };
 opcodes.prototype.RTS = function() {
 //RTS             60      6               --------        Return from subroutine.
+    return true;
 };
 opcodes.prototype.SBC = function() {
 //SBC #imm        E9      2 [16A,D]       nv----zc        Subtract memory from
@@ -406,20 +461,25 @@ opcodes.prototype.SBC = function() {
 //SBC [dp],Y      F7      6 [16A,Z,D]
 //SBC ofs,S       E3      4 [16A,D]
 //SBC (ofs,S),Y   F3      7 [16A,D]
+    return true;
 };
 opcodes.prototype.SEC = function() {
 //SEC             38      2               -------1        Set carry bit.
+    return true;
 };
 opcodes.prototype.SED = function() {
 //SED             F8      2               ----1---        Set decimal bit.
+    return true;
 };
 opcodes.prototype.SEI = function() {
 //SEI             78      2               -----1--        Set interrupt disable
 //                                                        bit.
+    return true;
 };
 opcodes.prototype.SEP = function() {
 //SEP #imm        E2      3               ????????        Set processor status
 //                                                        register bits.
+    return true;
 };
 opcodes.prototype.STA = function() {
 //STA abs         8D      4 [16A]         --------        Store A to memory.
@@ -436,102 +496,125 @@ opcodes.prototype.STA = function() {
 //STA [dp],y      97      6 [16A,Z]
 //STA ofs,S       83      4 [16A]
 //STA (ofs,S),Y   93      7 [16A]
+    return true;
 };
 opcodes.prototype.STC = function() {
 //STP             DB      3               --------        Stop the processor.
+    return true;
 };
 opcodes.prototype.STX = function() {
 //STX abs         8E      4 [I]           --------        Store X register to
 //                                                        memory.
 //STX dp          86      3 [I,Z]
 //STX dp,Y        96      4 [I,Z]
+    return true;
 };
 opcodes.prototype.STY = function() {
 //STY abs         8C      4 [I]           --------        Store Y register to
 //                                                        memory.
 //STY dp          84      3 [I,Z]
 //STY dp,X        94      4 [I,Z]
+    return true;
 };
 opcodes.prototype.STZ = function() {
 //STZ abs         9C      4 [16A]         --------        Store zero to memory.
 //STZ dp          64      3 [16A,Z]
 //STZ abs,X       9E      5 [16A]
 //STZ dp,X        74      4 [16A,Z]
+    return true;
 };
 opcodes.prototype.TAX = function() {
 //TAX             AA      2               n-----z-        Transfer A to X
 //                                                        register.
+    return true;
 };
 opcodes.prototype.TAY = function() {
 //TAY             A8      2               n-----z-        Transfer A to Y
 //                                                        register.
+    return true;
 };
 opcodes.prototype.TCD = function() {
 //TCD             5B      2               n-----z-        Transfer 16-bit A to
 //                                                        direct page register.
+    return true;
 };
 opcodes.prototype.TCS = function() {
 //TCS             1B      2               --------        Transfer A to stack
 //                                                        pointer.
+    return true;
 };
 opcodes.prototype.TDC = function() {
 //TDC             7B      2               n-----z-        Transfer direct page
 //                                                        register to A.
+    return true;
 };
 opcodes.prototype.TRB = function() {
 //TRB addr        1C      6 [16B]         ------z-        Test and reset bits
 //                                                        against A.
 //TRB dp          14      5 [16B,Z]
+    return true;
 };
 opcodes.prototype.TSB = function() {
 //TSB addr        0C      6 [16B]         ------z-        Test and set bits
 //                                                        against A.
 //TSB dp          04      5 [16B,Z]
+    return true;
 };
 opcodes.prototype.TSC = function() {
 //TSC             3B      2               n-----z-        Transfer stack pointer
 //                                                        to A.
+    return true;
 };
 opcodes.prototype.TSX = function() {
 //TSX             BA      2               n-----z-        Transfer stack pointer
 //                                                        to X register.
+    return true;
 };
 opcodes.prototype.TXA = function() {
 //TXA             8A      2               n-----z-        Transfer X register to
 //                                                        A.
+    return true;
 };
 opcodes.prototype.TXS = function() {
 //TXS             9A      2               --------        Transfer X register to
 //                                                        stack pointer.
+    return true;
 };
 opcodes.prototype.TXY = function() {
 //TXY             9B      2               n-----z-        Transfer X register to
 //                                                        Y register.
+    return true;
 };
 opcodes.prototype.TYA = function() {
 //TYA             98      2               n-----z-        Transfer Y register to
 //                                                        A.
+    return true;
 };
 opcodes.prototype.TYX = function() {
 //TYX             BB      2               n-----z-        Transfer Y register to
 //                                                        X register.
+    return true;
 };
 opcodes.prototype.WAI = function() {
 //WAI             CB      3               --------        Wait for interrupt.
+    return true;
 };
 
 opcodes.prototype.WDM = function() {
 //WDM             42      ?               --------        Reserved (currently
 //                                                        NOP).
+    return true;
 };
 
 opcodes.prototype.XBA = function() {
 //XBA             EB      3               n-----z-        Exchange the B and A
 //                                                        accumulators.
+    return true;
 };
 opcodes.prototype.XCE = function() {
 //XCE             FB      2               --??----        Exchange carry and
 //                                                        emulation bits.
+    return true;
 };
 
 
@@ -567,5 +650,7 @@ jsW65C816S.prototype.Reset = function() {
     this.flags.M = true;
     this.flags.X = true;
     this.flags.D = false;
+    
+    return true;
 };
 
