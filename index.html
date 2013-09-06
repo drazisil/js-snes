@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jsSNES</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script type="text/javascript" src="js/jsPPU.js"></script>
+        <script type="text/javascript" src="js/jsAjHD.js"></script>
+        <script type="text/javascript" src="js/jsMemMapper.js"></script>
+        <script type="text/javascript" src="js/jsW65C816S_opcodes.js"></script>
+        <script type="text/javascript" src="js/jsW65C816S.js"></script>
+        <script type="text/javascript" src="js/jsSNES.js"></script>
+        <script type="text/javascript" src="js/cartridge.js"></script>
+        <script type="text/javascript" src="js/jsSNESSystem.js"></script>
+    </head>
+    <body>
+        <div><canvas id="snesScreen" width="256" height="224" style="border: 1px dotted;"></canvas></div>
+        <script type="text/javascript">
+            function isSystemReady(cpu, cycleCount) {
+                if (cpu.cart.state === true) {
+                    clearTimeout(1);
+                    cpu.run(cycleCount);
+                }
+            }
+            debugMode = true;
+            //maxCycles = 959;
+            maxCycles = 0;
+            //ppu = new jsPPU();
+            //eda = new jsAjHD();
+            //mapper = new jsMemMapper(eda);
+            //snes = new jsSNES(mapper, ppu);
+            //ppu.init();
+            //eda.preCache('http://jwebnet.net/jsSNES/Super%20Mario%20World.smc');
+            
+            snes = new jsSNESSystem();
+            snes.powerOn();
+            snes.cart.insert('http://jwebnet.net/jsSNES/Super%20Mario%20World.smc');
+            
+            timeoutID = setInterval(isSystemReady, 500, snes, maxCycles);
+
+        </script>
+    </body>
+</html>
