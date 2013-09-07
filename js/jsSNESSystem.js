@@ -42,13 +42,19 @@ jsSNESSystem.prototype.run = function(maxCycles) {
 
     //Init
     // Set D to $00
-    this.cpu.registers.D = [0, 0];
+    this.cpu.registers.D = new Uint8Array(new ArrayBuffer(2));
+    this.cpu.registers.D[0] = 0;
+    this.cpu.registers.D[1] = 0;
 
     // Set PC to $8000
-    this.cpu.registers.PC = [hex2dec('00'), hex2dec('80')];
+    this.cpu.registers.PC = new Uint8Array(new ArrayBuffer(2));
+    this.cpu.registers.PC[0] = hex2dec('00');
+    this.cpu.registers.PC[1] = hex2dec('80');
 
     // Set S to $1FF
-    this.cpu.registers.S = [hex2dec('01'), hex2dec('FF')];
+    this.cpu.registers.S = new Uint8Array(new ArrayBuffer(2));
+    this.cpu.registers.S[0] = hex2dec('01');
+    this.cpu.registers.S[1] = hex2dec('FF');
 
     // Fetch, Decode, Execute
     for (i = 0; i < this.maxCycles; i++) {
@@ -64,7 +70,7 @@ jsSNESSystem.prototype.run = function(maxCycles) {
         }
 
         //Execute
-        ret = this.cpu.opcodes[opcode](opcodeHex);
+        ret = this.cpu[opcode](this.mem, opcodeHex);
         if (ret === false)
         {
             console.log('FATAL ERROR: error executing opcode. ' + opcodeHex);
