@@ -67,7 +67,7 @@ jsW65C816S.prototype.ADC = function() {
 //ADC [dp],Y      77      6 [16A,Z,D]
 //ADC ofs,S       63      4 [16A,D]
 //ADC (ofs,S),Y   73      7 [16A,D]
-    console.log('Testing..');
+    debug('Testing..');
     return true;
 };
 jsW65C816S.prototype.AND = function() {
@@ -301,10 +301,19 @@ jsW65C816S.prototype.LDA = function(mem, opcodeHex) {
     switch (opcodeHex)
     {
         case 'A5':
-            this.incPC();
-            val = mem.readByteHex(this.registers.D, this.registers.PC);
-            this.registers.A[0] = val;
-            this.incPC();
+            LB = this.readByte();
+            if (this.flags.M === false) {
+                HB = this.readByte();
+            }
+            this.registers.A[0] = LB;
+            if (this.flags.M === false) {
+                this.registers.A[1] = HB;
+                debug('LDA (16)' + [LB, HB]);
+
+            } else {
+                debug('LDA (8)' + [LB]);
+            }
+            break;
             return true;
         default:
             return false;
@@ -664,6 +673,7 @@ jsW65C816S.prototype.XCE = function() {
  * @returns {Boolean}
  */
 function jsW65C816S() {
+    this.mem = {};
     this.registers = {};
     this.registers.A = new Uint8Array(new ArrayBuffer(2));
     this.registers.D = new Uint8Array(new ArrayBuffer(2));
@@ -711,6 +721,11 @@ jsW65C816S.prototype.decodeOpcode = function(opcodeHex)
 /*
  * Utility functions
  */
+jsW65C816S.prototype.readByte = function() {
+    byte = this.mem.readByteHex(this.registers.D, this.registers.PC);
+    this.incPC();
+    return byte;
+};
 jsW65C816S.prototype.incPC = function() {
     this.incOffset(this.registers.PC);
 };

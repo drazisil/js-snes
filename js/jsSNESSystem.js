@@ -11,26 +11,27 @@ jsSNESSystem.prototype.powerOn = function() {
         this.cpu.Reset();
         this.cart = new cartridge();
         this.mem = new jsMemMapper(this.cart);
+        this.cpu.mem = this.mem;
     } else {
-        console.log('ERROR: System halted.');
+        debug('ERROR: System halted.');
     }
 };
 
 jsSNESSystem.prototype.POST = function() {
     if (jsMemMapper) {
-        //console.log('SYSTEM: Memory mapper available.');
+        //debug('SYSTEM: Memory mapper available.');
     }
     if (jsPPU) {
-        //console.log('SYSTEM: PPU available.');
+        //debug('SYSTEM: PPU available.');
     }
     if (jsW65C816S) {
-        //console.log('SYSTEM: CPU available.');
+        //debug('SYSTEM: CPU available.');
     }
     if ((jsMemMapper & jsPPU & jsW65C816S & ArrayBuffer & Uint8Array) === 0) {
-        console.log('SYSTEM: POST passed.');
+        debug('SYSTEM: POST passed.');
         return true;
     } else {
-        console.log('SYSTEM: POST failed.');
+        debug('SYSTEM: POST failed.');
         return false;
 
     }
@@ -38,7 +39,7 @@ jsSNESSystem.prototype.POST = function() {
 
 jsSNESSystem.prototype.run = function(maxCycles) {
     this.maxCycles = maxCycles;
-    console.log('Running for ' + this.maxCycles + ' cycles.');
+    debug('Running for ' + this.maxCycles + ' cycles.');
 
     //Init
     // Set D to $00
@@ -60,12 +61,13 @@ jsSNESSystem.prototype.run = function(maxCycles) {
     for (i = 0; i < this.maxCycles; i++) {
         //Fetch
         opcodeHex = this.mem.readByteHex(this.cpu.registers.D, this.cpu.registers.PC);
+        this.cpu.incPC();
 
         //Decode
         opcode = this.cpu.decodeOpcode(opcodeHex);
         if (opcode === false)
         {
-            console.log('FATAL ERROR: error decoding opcode. ' + opcodeHex);
+            debug('FATAL ERROR: error decoding opcode. ' + opcodeHex);
             return false;
         }
 
@@ -73,11 +75,20 @@ jsSNESSystem.prototype.run = function(maxCycles) {
         ret = this.cpu[opcode](this.mem, opcodeHex);
         if (ret === false)
         {
-            console.log('FATAL ERROR: error executing opcode. ' + opcodeHex);
+            debug('FATAL ERROR: error executing opcode. ' + opcodeHex);
             return false;
         }
-        console.log(opcode);
+        debug(opcode);
 
     }
 
+}
+
+/*
+ * Utility functions
+ */
+function debug(data) {
+    if (debugMode === true) {
+        console.log(data);
+    }
 }

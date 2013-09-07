@@ -13,7 +13,7 @@ cartridge.prototype.insert = function(path) {
         if (arrayBuffer) {
             me.ROMmemory = new Uint8Array(arrayBuffer);
             me.state = true;
-            console.log('Loaded Cartridge: '+me.path);
+            debug('Loaded Cartridge: '+me.path);
         }
     };
 

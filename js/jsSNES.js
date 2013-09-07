@@ -339,7 +339,7 @@ jsSNES.prototype.doOpcode = function(opcodeHex) {
             debug('SBC #const');
             break;
         default:
-            console.log('Unsupported Opcode: ' + opcodeHex);
+            debug('Unsupported Opcode: ' + opcodeHex);
             break;
     }
 
