@@ -248,7 +248,7 @@ opcodes.prototype.EOR = function() {
 // XOR = ^
     return true;
 };
-opcodes.prototype.INC = function() {
+opcodes.prototype.INC = function(opcode) {
 //INC             1A      2               n------c        Increment A or memory.
 //INC abs         EE      6 [16B]
 //INC dp          E6      5 [16B,Z]
@@ -285,7 +285,7 @@ opcodes.prototype.JSR = function() {
 //JSR (addr,X)    FC      8
     return true;
 };
-opcodes.prototype.LDA = function() {
+opcodes.prototype.LDA = function(opcodeHex) {
 //LDA #imm        A9      2 [16A]         n-----z-        Load accumulator with
 //                                                        memory.
 //LDA abs         AD      4 [16A]
@@ -302,7 +302,11 @@ opcodes.prototype.LDA = function() {
 //LDA [dp],Y      B7      6 [16A,Z]
 //LDA ofs,S       A3      4 [16A]
 //LDA (ofs,S),Y   B3      7 [16A]
-    return true;
+    switch (opcodeHex)
+    {
+        default:
+            return false;
+    }
 };
 opcodes.prototype.LDX = function() {
 //LDX #imm        A2      2 [I]           n-----z-        Load X register with
@@ -653,14 +657,12 @@ opcodes.prototype.XCE = function() {
     return true;
 };
 
-
-
 /*
  * The 65818 cpu object
  * @returns {Boolean}
  */
 function jsW65C816S() {
-    this.opcode = new opcodes();
+    this.opcodes = new opcodes();
     this.registers = {};
     this.signals = {};
     this.flags = {};
@@ -688,5 +690,17 @@ jsW65C816S.prototype.Reset = function() {
     this.flags.D = false;
 
     return true;
+};
+
+jsW65C816S.prototype.decodeOpcode = function(opcodeHex)
+{
+    switch (opcodeHex)
+    {
+        case 'A5':
+            return 'LDA';
+        default:
+            return false;
+
+    }
 };
 

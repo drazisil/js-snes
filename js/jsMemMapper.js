@@ -65,9 +65,9 @@ function hex2dec(hex, len) {
     }
 }
 
-function jsMemMapper(jsAjHD) {
+function jsMemMapper(cartridge) {
 
-    this.rawCart = jsAjHD;
+    this.rawCart = cartridge;
     
     return true;
 
@@ -75,7 +75,7 @@ function jsMemMapper(jsAjHD) {
 
 jsMemMapper.prototype.stripSMCHeader = function() {
 
-    this.rawCart.buffer = this.rawCart.buffer.subarray(512);
+    this.rawCart.ROMmemory = this.rawCart.ROMmemory.subarray(512);
 
 };
 
@@ -119,40 +119,40 @@ jsMemMapper.prototype.snes2rom = function(addr) {
 jsMemMapper.prototype.readByte = function(bank, offset) {
     hexAddr = dec2hex(bank[0]) + dec2hex(offset[1]) + dec2hex(offset[0]);
     //debug(hexAddr);
-    return this.rawCart.buffer[ this.snes2rom(hex2dec(hexAddr))  ];
+    return this.rawCart.ROMmemory[ this.snes2rom(hex2dec(hexAddr))  ];
 };
 
 jsMemMapper.prototype.readByteHex = function(bank, offset) {
     hexAddr = dec2hex(bank[0]) + dec2hex(offset[1]) + dec2hex(offset[0]);
     //debug(hexAddr);
-    return dec2hex(this.rawCart.buffer[ this.snes2rom(hex2dec(hexAddr))  ]);
+    return dec2hex(this.rawCart.ROMmemory[ this.snes2rom(hex2dec(hexAddr))  ]);
 };
 
 jsMemMapper.prototype.writeByte = function(bank, offset, data) {
     hexAddr = dec2hex(bank[0]) + dec2hex(offset[1]) + dec2hex(offset[0]);
     //debug(hexAddr);
-    this.rawCart.buffer[ this.snes2rom(hex2dec(hexAddr))  ] = data;
+    this.rawCart.ROMmemory[ this.snes2rom(hex2dec(hexAddr))  ] = data;
 };
 
 
 jsMemMapper.prototype.init = function() {
 
     // First, do we have an SMC header?
-    if (this.rawCart.buffer.byteLength % 1024 === 512) {
+    if (this.rawCart.ROMmemory.byteLength % 1024 === 512) {
         // Get rid of it
         this.stripSMCHeader();
     }
 
-    debug(this.rawCart.buffer.byteLength);
+    debug(this.rawCart.ROMmemory.byteLength);
 
     // Assume LoROM in case we can't detect
     this.romLayout = 32
 
-    title = String.fromCharCode(this.rawCart.buffer[32704]) + String.fromCharCode(this.rawCart.buffer[32705]) + String.fromCharCode(this.rawCart.buffer[32706]);
+    title = String.fromCharCode(this.rawCart.ROMmemory[32704]) + String.fromCharCode(this.rawCart.ROMmemory[32705]) + String.fromCharCode(this.rawCart.ROMmemory[32706]);
     var re = new RegExp('[^\\u0000-\\u007f]');
     if (re.test(title) === false) {
         debug('RomLayout: LoROM');
-        this.RomSize = this.rawCart.buffer[32727];
+        this.RomSize = this.rawCart.ROMmemory[32727];
         debug('ROM Size: ' + this.RomSize);
 
     } else {
