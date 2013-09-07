@@ -14,27 +14,45 @@ function opcodes() {
 //        P:   Add 1 if branch crosses page boundary in emulation mode
 //        Z:   Add 1 if DP is not on a page boundary
 
-//Addressing Mode                                   Syntax Example
-//                                                  Opcode  Operand
+// 6502
+//Addressing Mode                                       Syntax Example
+//                                                      Opcode  Operand
 //
-//Implied                                           DEX     
-//Accumulator                                       ASL     A
-//Immediate                                         LDA     #55
-//Absolute                                          LDA     $2000
-//Program Counter Relative                          BEQ     LABEL12
-//Stack                                             PHA
-//Zero Stack                                        LDA     $81
-//Absolute Indexed with X                           LDA     $2000,X
-//Absolute Indexed with Y                           LDA     $2000,Y
-//Zero Page Indexed with X                          LDA     $55,X
-//Zero Page Indexed with Y                          LDX     $55,Y
-//Absolute Indirect                                 JMP     ($1020)
-//Zero Page Indirect Indexed with Y (Postindexed)   LDA     ($55),Y
-//Zero Page Indexed Indirect with X (Preindexed)    LDA     ($55,X)
+//Implied                                               DEX     
+//Accumulator                                           ASL     A
+//Immediate                                             LDA     #55
+//Absolute                                              LDA     $2000
+//Program Counter Relative                              BEQ     LABEL12
+//Stack                                                 PHA
+//Direct Stack                                          LDA     $81
+//Absolute Indexed with X                               LDA     $2000,X
+//Absolute Indexed with Y                               LDA     $2000,Y
+//Direct Page Indexed with X                            LDA     $55,X
+//Direct Page Indexed with Y                            LDX     $55,Y
+//Absolute Indirect                                     JMP     ($1020)
+//Direct Page Indirect Indexed with Y (Postindexed)     LDA     ($55),Y
+//Direct Page Indexed Indirect with X (Preindexed)      LDA     ($55,X)
+
+// 65C02
+//Direct Page Indirect                                  LDA     ($55)
+//Absolute Indexed Indirect                             JMP     ($2000,X)
+
+// 65816
+//Program Counter Relative Long                         BRL     JMPLABEL
+//Stack Relative                                        LDA     3, S
+//Stack Relative Indirect Indexed with Y                LDA     (5,S), Y
+//Block Move                                            MVP     0,0
+//Absolute Long                                         LDA     $02F000
+//Absolute Long Indexed with X                          LDA     $12D080, X
+//Absolute Indirect Long                                JMP     [$2000]
+//Direct Page Indirect Long                             LDA     [$55]
+//Direct Page Indirect Long Indexed with Y              LDA     [$55], Y
+
+}
+;
 
 //Instruction     Hex     Cycle Time      Status Reg.     Notes
 //===============================================================================
-};
 
 opcodes.prototype.ADC = function() {
 //ADC #imm        69      2 [16A,D]       nv----zc        Add memory to A with
@@ -54,7 +72,7 @@ opcodes.prototype.ADC = function() {
 //ADC ofs,S       63      4 [16A,D]
 //ADC (ofs,S),Y   73      7 [16A,D]
     console.log('Testing...');
-        return true;
+    return true;
 };
 opcodes.prototype.AND = function() {
 //AND #imm        29      2 [16A]         n-----z-        And A with memory.
@@ -668,7 +686,7 @@ jsW65C816S.prototype.Reset = function() {
     this.flags.M = true;
     this.flags.X = true;
     this.flags.D = false;
-    
+
     return true;
 };
 
