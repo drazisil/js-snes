@@ -1,7 +1,6 @@
 /*
  * Opcodes
  */
-function opcodes() {
 //Cycle Time Adjustments
 //        16A: Add 1 if using 16-bit memory and accumulator
 //        16B: Add 2 if using 16-bit memory and accumulator
@@ -48,13 +47,10 @@ function opcodes() {
 //Direct Page Indirect Long                             LDA     [$55]
 //Direct Page Indirect Long Indexed with Y              LDA     [$55], Y
 
-}
-;
-
 //Instruction     Hex     Cycle Time      Status Reg.     Notes
 //===============================================================================
 
-opcodes.prototype.ADC = function() {
+jsW65C816S.prototype.ADC = function() {
 //ADC #imm        69      2 [16A,D]       nv----zc        Add memory to A with
 //                                                        carry.
 //ADC abs         6D      4 [16A,D]
@@ -71,10 +67,10 @@ opcodes.prototype.ADC = function() {
 //ADC [dp],Y      77      6 [16A,Z,D]
 //ADC ofs,S       63      4 [16A,D]
 //ADC (ofs,S),Y   73      7 [16A,D]
-    console.log('Testing...');
+    console.log('Testing..');
     return true;
 };
-opcodes.prototype.AND = function() {
+jsW65C816S.prototype.AND = function() {
 //AND #imm        29      2 [16A]         n-----z-        And A with memory.
 //AND abs         2D      4 [16A]
 //AND abslong     2F      5 [16A]
@@ -94,7 +90,7 @@ opcodes.prototype.AND = function() {
 // AND = &&
     return true;
 };
-opcodes.prototype.ASL = function() {
+jsW65C816S.prototype.ASL = function() {
 //ASL             0A      2               n-----zc        Shift left memory or A.
 //ASL abs         0E      6 [16B]
 //ASL dp          06      5 [16B,Z]
@@ -103,19 +99,19 @@ opcodes.prototype.ASL = function() {
     return true;
 };
 
-opcodes.prototype.BCC = function() {
+jsW65C816S.prototype.BCC = function() {
 //BCC relbyte     90      2 [B,P]         --------        Branch if carry clear.
     return true;
 };
-opcodes.prototype.BCS = function() {
+jsW65C816S.prototype.BCS = function() {
 //BCS relbyte     B0      2 [B,P]         --------        Branch if carry set.
     return true;
 };
-opcodes.prototype.BEQ = function() {
+jsW65C816S.prototype.BEQ = function() {
 //BEQ relbyte     F0      2 [B,P]         --------        Branch if equal (z=0).
     return true;
 };
-opcodes.prototype.BIT = function() {
+jsW65C816S.prototype.BIT = function() {
 //BIT #imm        89      2 [16A]         ------z-        Test memory with bits
 //                                                        from A.
 //BIT abs         2C      4 [16A]         nv----z-
@@ -124,60 +120,60 @@ opcodes.prototype.BIT = function() {
 //BIT dp,X        34      4 [16A,Z]    
     return true;
 };
-opcodes.prototype.BMI = function() {
+jsW65C816S.prototype.BMI = function() {
 //BMI relbyte     30      2 [B,P]         --------        Branch if minus (n=1).
     return true;
 };
-opcodes.prototype.BNE = function() {
+jsW65C816S.prototype.BNE = function() {
 //BNE relbyte     D0      2 [B,P]         --------        Branch if not equal.
     return true;
 };
-opcodes.prototype.BPL = function() {
+jsW65C816S.prototype.BPL = function() {
 //BPL relbyte     10      2 [B,P]         --------        Branch if positive.
     return true;
 };
-opcodes.prototype.BRA = function() {
+jsW65C816S.prototype.BRA = function() {
 //BRA relbyte     80      2 [P]           --------        Branch always.    
     return true;
 };
-opcodes.prototype.BRK = function() {
+jsW65C816S.prototype.BRK = function() {
 //BRK byte        00      7 [N]           ----01--        Software break
 //BRK             00                      ---101--        (sets b in emulation
 //                                                        mode).    
     return true;
 };
-opcodes.prototype.BRL = function() {
+jsW65C816S.prototype.BRL = function() {
 //BRL relword     82      4               --------        Branch always long.    
     return true;
 };
-opcodes.prototype.BVC = function() {
+jsW65C816S.prototype.BVC = function() {
 //BVC relbyte     50      2 [B,P]         --------        Branch if overflow
 //                                                        clear.    
     return true;
 };
-opcodes.prototype.BVS = function() {
+jsW65C816S.prototype.BVS = function() {
 //BVS relbyte     70      2 [B,P]         --------        Branch if overflow set.
     return true;
 };
 
-opcodes.prototype.CLC = function() {
+jsW65C816S.prototype.CLC = function() {
 //CLC             18      2               -------0        Clear carry bit.
     return true;
 };
-opcodes.prototype.CLD = function() {
+jsW65C816S.prototype.CLD = function() {
 //CLD             D8      2               ----0---        Clear decimal bit.
     return true;
 };
-opcodes.prototype.CLI = function() {
+jsW65C816S.prototype.CLI = function() {
 //CLI             58      2               -----0--        Clear interrupt disable
 //                                                        bit.
     return true;
 };
-opcodes.prototype.CLV = function() {
+jsW65C816S.prototype.CLV = function() {
 //CLV             B8      2               -0------        Clear overflow bit.
     return true;
 };
-opcodes.prototype.CMP = function() {
+jsW65C816S.prototype.CMP = function() {
 //CMP #imm        C9      2 [16A]         n-----zc        Compare A with memory.
 //CMP abs         CD      4 [16A]
 //CMP abslong     CF      5 [16A]
@@ -195,23 +191,23 @@ opcodes.prototype.CMP = function() {
 //CMP (ofs,S),Y   D3      7 [16A]
     return true;
 };
-opcodes.prototype.COP = function() {
+jsW65C816S.prototype.COP = function() {
 //COP byte        02      7 [N]           ----01--        Coprocessor enable.
     return true;
 };
-opcodes.prototype.CPX = function() {
+jsW65C816S.prototype.CPX = function() {
 //CPX #imm        E0      2 [I]           n-----zc        Compare X with memory.
 //CPX abs         EC      4 [I]
 //CPX dp          E4      3 [I,Z]
     return true;
 };
-opcodes.prototype.CPY = function() {
+jsW65C816S.prototype.CPY = function() {
 //CPY #imm        C0      2 [I]           n-----zc        Compare Y with memory.
 //CPY abs         CC      4 [I]
 //CPY dp          C4      3 [I,Z]
     return true;
 };
-opcodes.prototype.DEC = function() {
+jsW65C816S.prototype.DEC = function() {
 //DEC             3A      2               n------c        Decrement A or memory.
 //DEC abs         CE      6 [16B]
 //DEC dp          C6      5 [16B,Z]
@@ -219,15 +215,15 @@ opcodes.prototype.DEC = function() {
 //DEC dp,X        D6      6 [16B,Z]
     return true;
 };
-opcodes.prototype.DEX = function() {
+jsW65C816S.prototype.DEX = function() {
 //DEX             CA      2               n------c        Decrement X register.
     return true;
 };
-opcodes.prototype.DEY = function() {
+jsW65C816S.prototype.DEY = function() {
 //DEY             88      2               n------c        Decrement Y register.
     return true;
 };
-opcodes.prototype.EOR = function() {
+jsW65C816S.prototype.EOR = function() {
 //EOR #imm        49      2 [16A]         n------c        Exclusive-OR A with
 //                                                        memory.
 //EOR abs         4D      4 [16A]
@@ -248,7 +244,7 @@ opcodes.prototype.EOR = function() {
 // XOR = ^
     return true;
 };
-opcodes.prototype.INC = function(opcode) {
+jsW65C816S.prototype.INC = function(opcode) {
 //INC             1A      2               n------c        Increment A or memory.
 //INC abs         EE      6 [16B]
 //INC dp          E6      5 [16B,Z]
@@ -256,36 +252,36 @@ opcodes.prototype.INC = function(opcode) {
 //INC dp,X        F6      6 [16B,Z]
     return true;
 };
-opcodes.prototype.INX = function() {
+jsW65C816S.prototype.INX = function() {
 //INX             E8      2               n------c        Increment X register.
     return true;
 };
-opcodes.prototype.INY = function() {
+jsW65C816S.prototype.INY = function() {
 //INY             C8      2               n------c        Increment Y register.
     return true;
 };
-opcodes.prototype.JML = function() {
+jsW65C816S.prototype.JML = function() {
 //JML abslong     5C      4               --------        Jump long.
 //JML [dp]        DC      6
     return true;
 };
-opcodes.prototype.JMP = function() {
+jsW65C816S.prototype.JMP = function() {
 //JMP abs         4C      3               --------        Jump.
 //JMP (abs)       6C      5
 //JMP (abs,X)     7C      6
     return true;
 };
-opcodes.prototype.JSL = function() {
+jsW65C816S.prototype.JSL = function() {
 //JSL abslong     22      8               --------        Jump to subroutine
 //                                                        long.
     return true;
 };
-opcodes.prototype.JSR = function() {
+jsW65C816S.prototype.JSR = function() {
 //JSR abs         20      6               --------        Jump to subroutine.
 //JSR (addr,X)    FC      8
     return true;
 };
-opcodes.prototype.LDA = function(opcodeHex) {
+jsW65C816S.prototype.LDA = function(mem, opcodeHex) {
 //LDA #imm        A9      2 [16A]         n-----z-        Load accumulator with
 //                                                        memory.
 //LDA abs         AD      4 [16A]
@@ -304,11 +300,17 @@ opcodes.prototype.LDA = function(opcodeHex) {
 //LDA (ofs,S),Y   B3      7 [16A]
     switch (opcodeHex)
     {
+        case 'A5':
+            this.incPC();
+            val = mem.readByteHex(this.registers.D, this.registers.PC);
+            this.registers.A[0] = val;
+            this.incPC();
+            return true;
         default:
             return false;
     }
 };
-opcodes.prototype.LDX = function() {
+jsW65C816S.prototype.LDX = function() {
 //LDX #imm        A2      2 [I]           n-----z-        Load X register with
 //                                                        memory.
 //LDX abs         AE      4 [I]
@@ -317,7 +319,7 @@ opcodes.prototype.LDX = function() {
 //LDX dp,Y        B6      4 [I,Z]
     return true;
 };
-opcodes.prototype.LDY = function() {
+jsW65C816S.prototype.LDY = function() {
 //LDY #imm        A0      2 [I]           n-----z-        Load Y register with
 //                                                        memory.
 //LDY abs         AC      4 [I]
@@ -326,7 +328,7 @@ opcodes.prototype.LDY = function() {
 //LDY dp,X        B4      4 [I,Z]
     return true;
 };
-opcodes.prototype.LSR = function() {
+jsW65C816S.prototype.LSR = function() {
 //LSR             4A      2               n-----zc        Logical shift A or
 //                                                        memory right.
 //LSR abs         4E      6 [16A]
@@ -335,12 +337,12 @@ opcodes.prototype.LSR = function() {
 //LSR dp,X        56      6 [16A,Z]
     return true;
 };
-opcodes.prototype.MVN = function() {
+jsW65C816S.prototype.MVN = function() {
 //MVN byte,byte   54      [M]             --------        Move memory negative
 //                                                        (srcbank, destbank).
     return true;
 };
-opcodes.prototype.MVP = function() {
+jsW65C816S.prototype.MVP = function() {
 //MVP byte,byte   44      [M]             --------        Move memory positive
 //                                                        (srcbank, destbank).
 //                                                        * X = source address
@@ -348,11 +350,11 @@ opcodes.prototype.MVP = function() {
 //                                                          A = length -1
     return true;
 };
-opcodes.prototype.NOP = function() {
+jsW65C816S.prototype.NOP = function() {
 //NOP             EA      2               --------        No operation.
     return true;
 };
-opcodes.prototype.ORA = function() {
+jsW65C816S.prototype.ORA = function() {
 //ORA #imm        09      2 [16A]         n-----z-        Or A with memory.
 //ORA abs         0D      4 [16A]
 //ORA abslong     0F      5 [16A]
@@ -372,86 +374,86 @@ opcodes.prototype.ORA = function() {
 // OR = |
     return true;
 };
-opcodes.prototype.PEA = function() {
+jsW65C816S.prototype.PEA = function() {
 //PEA abs         F4      5               --------        Push effective absolute
 //                                                        address.
     return true;
 };
-opcodes.prototype.PEI = function() {
+jsW65C816S.prototype.PEI = function() {
 //PEI (dp)        D4      6 [Z]           --------        Push effective indirect
 //                                                        address.
     return true;
 };
-opcodes.prototype.PER = function() {
+jsW65C816S.prototype.PER = function() {
 //PER relword     62      6               --------        Push effective relative
 //                                                        address.
     return true;
 };
-opcodes.prototype.PHA = function() {
+jsW65C816S.prototype.PHA = function() {
 //PHA             48      3 [16A]         --------        Push accumulator.
     return true;
 };
-opcodes.prototype.PHB = function() {
+jsW65C816S.prototype.PHB = function() {
 //PHB             8B      3               --------        Push data bank
 //                                                        register.
     return true;
 };
-opcodes.prototype.PHD = function() {
+jsW65C816S.prototype.PHD = function() {
 //PHD             0B      4               --------        Push direct page
 //                                                        register.
     return true;
 };
-opcodes.prototype.PHK = function() {
+jsW65C816S.prototype.PHK = function() {
 //PHK             4B      3               --------        Push program bank
 //                                                        register.
     return true;
 };
-opcodes.prototype.PHP = function() {
+jsW65C816S.prototype.PHP = function() {
 //PHP             08      3               --------        Push processor status
 //                                                        register.
     return true;
 };
-opcodes.prototype.PHX = function() {
+jsW65C816S.prototype.PHX = function() {
 //PHX             DA      3 [I]           --------        Push X register.
     return true;
 };
-opcodes.prototype.PHY = function() {
+jsW65C816S.prototype.PHY = function() {
 //PHY             5A      3 [I]           --------        Push Y register.
     return true;
 };
-opcodes.prototype.PLA = function() {
+jsW65C816S.prototype.PLA = function() {
 //PLA             68      4 [16A]         n-----z-        Pull accumulator.
     return true;
 };
-opcodes.prototype.PLB = function() {
+jsW65C816S.prototype.PLB = function() {
 //PLB             AB      4               n-----z-        Pull data bank
 //                                                        register.
     return true;
 };
-opcodes.prototype.PLD = function() {
+jsW65C816S.prototype.PLD = function() {
 //PLD             2B      5               n-----z-        Pull direct page
 //                                                        register.
     return true;
 };
-opcodes.prototype.PLP = function() {
+jsW65C816S.prototype.PLP = function() {
 //PLP             28      4               nvmxdizc        Pull processor status
 //                                                        register.
     return true;
 };
-opcodes.prototype.PLX = function() {
+jsW65C816S.prototype.PLX = function() {
 //PLX             FA      4 [I]           n-----z-        Pull X register.
     return true;
 };
-opcodes.prototype.PLY = function() {
+jsW65C816S.prototype.PLY = function() {
 //PLY             7A      4 [I]           n-----z-        Pull Y register.
     return true;
 };
-opcodes.prototype.REP = function() {
+jsW65C816S.prototype.REP = function() {
 //REP #imm        C2      3               ????????        Reset processor status
 //                                                        register bits.
     return true;
 };
-opcodes.prototype.ROL = function() {
+jsW65C816S.prototype.ROL = function() {
 //ROL             2A      2               n-----zc        Rotate A or memory
 //                                                        left.
 //ROL abs         2E      6 [16A]
@@ -460,7 +462,7 @@ opcodes.prototype.ROL = function() {
 //ROL dp,X        36      6 [16A,Z]
     return true;
 };
-opcodes.prototype.ROR = function() {
+jsW65C816S.prototype.ROR = function() {
 //ROR             2A      2               n-----zc        Rotate A or memory
 //                                                        right.
 //ROR abs         2E      6 [16A]
@@ -469,22 +471,22 @@ opcodes.prototype.ROR = function() {
 //ROR dp,X        36      6 [16A,Z]
     return true;
 };
-opcodes.prototype.RTI = function() {
+jsW65C816S.prototype.RTI = function() {
 //RTI             40      6 [N]           ????????        Return from interrupt.
 //RTI             40      6               ??11????        (emulation mode).
     return true;
 };
-opcodes.prototype.RTL = function() {
+jsW65C816S.prototype.RTL = function() {
 //RTL             6B      6               --------        Return from subroutine
 //                                                        long.
     return true;
 
 };
-opcodes.prototype.RTS = function() {
+jsW65C816S.prototype.RTS = function() {
 //RTS             60      6               --------        Return from subroutine.
     return true;
 };
-opcodes.prototype.SBC = function() {
+jsW65C816S.prototype.SBC = function() {
 //SBC #imm        E9      2 [16A,D]       nv----zc        Subtract memory from
 //                                                        A with borrow.
 //SBC abs         ED      4 [16A,D]
@@ -503,25 +505,25 @@ opcodes.prototype.SBC = function() {
 //SBC (ofs,S),Y   F3      7 [16A,D]
     return true;
 };
-opcodes.prototype.SEC = function() {
+jsW65C816S.prototype.SEC = function() {
 //SEC             38      2               -------1        Set carry bit.
     return true;
 };
-opcodes.prototype.SED = function() {
+jsW65C816S.prototype.SED = function() {
 //SED             F8      2               ----1---        Set decimal bit.
     return true;
 };
-opcodes.prototype.SEI = function() {
+jsW65C816S.prototype.SEI = function() {
 //SEI             78      2               -----1--        Set interrupt disable
 //                                                        bit.
     return true;
 };
-opcodes.prototype.SEP = function() {
+jsW65C816S.prototype.SEP = function() {
 //SEP #imm        E2      3               ????????        Set processor status
 //                                                        register bits.
     return true;
 };
-opcodes.prototype.STA = function() {
+jsW65C816S.prototype.STA = function() {
 //STA abs         8D      4 [16A]         --------        Store A to memory.
 //STA abslong     8F      5 [16A]
 //STA dp          85      3 [16A,Z]
@@ -538,120 +540,120 @@ opcodes.prototype.STA = function() {
 //STA (ofs,S),Y   93      7 [16A]
     return true;
 };
-opcodes.prototype.STC = function() {
+jsW65C816S.prototype.STC = function() {
 //STP             DB      3               --------        Stop the processor.
     return true;
 };
-opcodes.prototype.STX = function() {
+jsW65C816S.prototype.STX = function() {
 //STX abs         8E      4 [I]           --------        Store X register to
 //                                                        memory.
 //STX dp          86      3 [I,Z]
 //STX dp,Y        96      4 [I,Z]
     return true;
 };
-opcodes.prototype.STY = function() {
+jsW65C816S.prototype.STY = function() {
 //STY abs         8C      4 [I]           --------        Store Y register to
 //                                                        memory.
 //STY dp          84      3 [I,Z]
 //STY dp,X        94      4 [I,Z]
     return true;
 };
-opcodes.prototype.STZ = function() {
+jsW65C816S.prototype.STZ = function() {
 //STZ abs         9C      4 [16A]         --------        Store zero to memory.
 //STZ dp          64      3 [16A,Z]
 //STZ abs,X       9E      5 [16A]
 //STZ dp,X        74      4 [16A,Z]
     return true;
 };
-opcodes.prototype.TAX = function() {
+jsW65C816S.prototype.TAX = function() {
 //TAX             AA      2               n-----z-        Transfer A to X
 //                                                        register.
     return true;
 };
-opcodes.prototype.TAY = function() {
+jsW65C816S.prototype.TAY = function() {
 //TAY             A8      2               n-----z-        Transfer A to Y
 //                                                        register.
     return true;
 };
-opcodes.prototype.TCD = function() {
+jsW65C816S.prototype.TCD = function() {
 //TCD             5B      2               n-----z-        Transfer 16-bit A to
 //                                                        direct page register.
     return true;
 };
-opcodes.prototype.TCS = function() {
+jsW65C816S.prototype.TCS = function() {
 //TCS             1B      2               --------        Transfer A to stack
 //                                                        pointer.
     return true;
 };
-opcodes.prototype.TDC = function() {
+jsW65C816S.prototype.TDC = function() {
 //TDC             7B      2               n-----z-        Transfer direct page
 //                                                        register to A.
     return true;
 };
-opcodes.prototype.TRB = function() {
+jsW65C816S.prototype.TRB = function() {
 //TRB addr        1C      6 [16B]         ------z-        Test and reset bits
 //                                                        against A.
 //TRB dp          14      5 [16B,Z]
     return true;
 };
-opcodes.prototype.TSB = function() {
+jsW65C816S.prototype.TSB = function() {
 //TSB addr        0C      6 [16B]         ------z-        Test and set bits
 //                                                        against A.
 //TSB dp          04      5 [16B,Z]
     return true;
 };
-opcodes.prototype.TSC = function() {
+jsW65C816S.prototype.TSC = function() {
 //TSC             3B      2               n-----z-        Transfer stack pointer
 //                                                        to A.
     return true;
 };
-opcodes.prototype.TSX = function() {
+jsW65C816S.prototype.TSX = function() {
 //TSX             BA      2               n-----z-        Transfer stack pointer
 //                                                        to X register.
     return true;
 };
-opcodes.prototype.TXA = function() {
+jsW65C816S.prototype.TXA = function() {
 //TXA             8A      2               n-----z-        Transfer X register to
 //                                                        A.
     return true;
 };
-opcodes.prototype.TXS = function() {
+jsW65C816S.prototype.TXS = function() {
 //TXS             9A      2               --------        Transfer X register to
 //                                                        stack pointer.
     return true;
 };
-opcodes.prototype.TXY = function() {
+jsW65C816S.prototype.TXY = function() {
 //TXY             9B      2               n-----z-        Transfer X register to
 //                                                        Y register.
     return true;
 };
-opcodes.prototype.TYA = function() {
+jsW65C816S.prototype.TYA = function() {
 //TYA             98      2               n-----z-        Transfer Y register to
 //                                                        A.
     return true;
 };
-opcodes.prototype.TYX = function() {
+jsW65C816S.prototype.TYX = function() {
 //TYX             BB      2               n-----z-        Transfer Y register to
 //                                                        X register.
     return true;
 };
-opcodes.prototype.WAI = function() {
+jsW65C816S.prototype.WAI = function() {
 //WAI             CB      3               --------        Wait for interrupt.
     return true;
 };
 
-opcodes.prototype.WDM = function() {
+jsW65C816S.prototype.WDM = function() {
 //WDM             42      ?               --------        Reserved (currently
 //                                                        NOP).
     return true;
 };
 
-opcodes.prototype.XBA = function() {
+jsW65C816S.prototype.XBA = function() {
 //XBA             EB      3               n-----z-        Exchange the B and A
 //                                                        accumulators.
     return true;
 };
-opcodes.prototype.XCE = function() {
+jsW65C816S.prototype.XCE = function() {
 //XCE             FB      2               --??----        Exchange carry and
 //                                                        emulation bits.
     return true;
@@ -662,8 +664,9 @@ opcodes.prototype.XCE = function() {
  * @returns {Boolean}
  */
 function jsW65C816S() {
-    this.opcodes = new opcodes();
     this.registers = {};
+    this.registers.A = new Uint8Array(new ArrayBuffer(2));
+    this.registers.D = new Uint8Array(new ArrayBuffer(2));
     this.signals = {};
     this.flags = {};
     return true;
@@ -672,7 +675,8 @@ function jsW65C816S() {
 jsW65C816S.prototype.Reset = function() {
 
     // Set registers
-    this.registers.D = [0, 0];
+    this.registers.D[0] = 0;
+    this.registers.D[1] = 0;
     this.registers.DBR = 0;
     this.registers.PBR = 0;
 
@@ -703,4 +707,59 @@ jsW65C816S.prototype.decodeOpcode = function(opcodeHex)
 
     }
 };
+
+/*
+ * Utility functions
+ */
+jsW65C816S.prototype.incPC = function() {
+    this.incOffset(this.registers.PC);
+};
+
+jsW65C816S.prototype.incOffset = function(offset) {
+    if (offset[1] === 255) {
+        debug('End of the Offset, need next bank');
+    } else {
+        if (offset[0] === 255) {
+            offset[0] = 0;
+            offset[1]++;
+        } else {
+            offset[0]++;
+        }
+    }
+    return offset;
+};
+
+jsW65C816S.prototype.decOffset = function(offset) {
+    this.flags.Z = false;
+    this.flags.N = false;
+    if (offset[0] === 0) {
+        if (offset[1] === 0) {
+            this.flags.Z = false;
+            this.flags.N = true;
+            offset[0] = 128;
+            offset[1] = 128;
+        } else {
+            offset[1]--;
+            offset[0] = 128;
+        }
+    } else {
+        if (this.checkBits(offset[1], 128) & offset[1] > 127) {
+            this.flags.N = true;
+            offset[0]--;
+
+        } else {
+            offset[0]--;
+        }
+    }
+    return offset;
+};
+
+jsW65C816S.prototype.checkBits = function(bits, value) {
+    if ((bits & value) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 
