@@ -15,8 +15,8 @@
         <script type="text/javascript">
             function isSystemReady(cpu, cycleCount) {
                 if (cpu.cart.state === true) {
-                    clearTimeout(1);
-                    clearTimeout(2);
+                    clearTimeout(1); // default under Chrome
+                    clearTimeout(2); // Default under Firefox
                     cpu.run(cycleCount);
                 }
             }
