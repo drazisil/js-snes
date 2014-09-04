@@ -1,21 +1,25 @@
+
 function cartridge() {
+    "use strict";
     this.state = false;
 }
 
-cartridge.prototype.insert = function(path) {
+cartridge.prototype.insert = function (path) {
+    "use strict";
     this.path = path;
-    var oReq = new XMLHttpRequest();
-    oReq.open("GET", this.path, true);
-    oReq.responseType = "arraybuffer";
+    var me, oReq = null;
+    this.oReq = new XMLHttpRequest();
+    this.oReq.open("GET", this.path, true);
+    this.oReq.responseType = "arraybuffer";
     me = this;
-    oReq.onload = function(oEvent) {
-        var arrayBuffer = oReq.response; // Note: not oReq.responseText
+    this.oReq.onload = function () {
+        var arrayBuffer = me.oReq.response; // Note: not oReq.responseText
         if (arrayBuffer) {
             me.ROMmemory = new Uint8Array(arrayBuffer);
             me.state = true;
-            debug('Loaded Cartridge: '+me.path);
+            debug('Loaded Cartridge: ' + me.path);
         }
     };
 
-    oReq.send(null);
-}
+    this.oReq.send(null);
+};
