@@ -1,0 +1,19 @@
+{
+  "name": "js-snes",
+  "version": "1.0.0",
+  "description": "js-snes =======",
+  "main": "index.js",
+  "scripts": {
+    "test": "phantomjs index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drazisil/js-snes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drazisil/js-snes/issues"
+  },
+  "homepage": "https://github.com/drazisil/js-snes#readme"
+}
